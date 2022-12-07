@@ -13,7 +13,10 @@ SELECT * from animals WHERE weight_kg <= 17.3 AND weight_kg >= 10.4;
 BEGIN;
 UPDATE animals
 SET species = 'unspecified'
-COMMIT;
+
+SELECT species from animals; 
+ROLLBACK;
+SELECT species from animals; 
 
 BEGIN;
 UPDATE animals
@@ -23,8 +26,10 @@ WHERE neme LIKE '%mon';
 UPDATE animals
 SET species = 'pokemon'
 WHERE species IS null;
+
+SELECT species from animals; 
 COMMIT;
-SELECT name, species FROM animals;
+SELECT species FROM animals;
 
 BEGIN;
 DELETE FROM animals;
