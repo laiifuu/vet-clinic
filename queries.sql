@@ -61,3 +61,43 @@ SELECT SUM(escape_attempts) AS escape_attempts, neutered FROM animals GROUP BY n
 SELECT species, MIN(weight_kg) AS min_weight, MAX(weight_kg) AS max_weight from animals GROUP BY species;
 SELECT species, AVG(escape_attempts) from animals WHERE date_of_birth between '1990-01-01' AND '2000-01-01'
 GROUP BY species;
+
+-- write queries for more tables using join
+SELECT a.name, o.full_name 
+FROM animals a
+JOIN owners AS o ON a.owner_id = o.id
+WHERE o.id = 4;
+
+SELECT a.id, a.name, s.name
+FROM animals AS a
+JOIN species AS s ON a.species_id = s.id
+WHERE s.name = 'Pokemon';
+
+SELECT full_name AS owner, name AS pet
+FROM owners AS o
+LEFT JOIN animals AS a ON o.id = a.owner_id
+GROUP BY full_name , name 
+ORDER BY full_name;
+
+SELECT COUNT(a.id) AS animals_count, s.name
+FROM animals as a
+JOIN species as s ON a.species_id = s.id
+GROUP BY s.name;
+
+SELECT  name AS pet
+FROM owners AS o
+LEFT JOIN animals AS a ON o.id = a.owner_id
+WHERE o.full_name = 'Jennifer Orwell'
+GROUP BY full_name , name;
+
+SELECT  name AS pet
+FROM owners AS o
+LEFT JOIN animals AS a ON o.id = a.owner_id
+WHERE o.full_name = 'Dean Winchester' AND a.escape_attempts = 0
+GROUP BY full_name , name;
+
+SELECT full_name AS owner, COUNT(name) AS number_of_pets
+FROM owners AS o
+LEFT JOIN animals AS a ON o.id = a.owner_id
+GROUP BY full_name 
+ORDER BY number_of_pets DESC;
