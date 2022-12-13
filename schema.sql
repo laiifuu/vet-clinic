@@ -55,4 +55,8 @@ CREATE TABLE visits (
 );
 
 
+-- Performance audit
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
 
+--SELECT COUNT(*) FROM visits where animal_id = 4;
+CREATE INDEX animal_id_asc ON visits(animal_id ASC);
