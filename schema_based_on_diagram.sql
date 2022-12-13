@@ -12,6 +12,9 @@ CREATE TABLE medical_histories(
     status VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
+-- FK index
+CREATE INDEX patient_id_index ON
+    medical_histories(patient_id);
 
 CREATE TABLE invoices(
     id INT GENERATED ALWAYS AS IDENTITY,
@@ -21,6 +24,9 @@ CREATE TABLE invoices(
     medical_history__id INT NOT NULL REFERENCES medical_histories(id),
     PRIMARY KEY (id)
 );
+-- FK index
+CREATE INDEX medical_history__id_index ON
+    invoices(medical_history__id);
 
 CREATE TABLE treatements(
     id INT GENERATED ALWAYS AS IDENTITY,
@@ -28,6 +34,9 @@ CREATE TABLE treatements(
     name VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
+-- FK index
+CREATE INDEX treatements_id_index ON
+    treatements(id);
 
 CREATE TABLE invoice_items(
     id  INT GENERATED ALWAYS AS IDENTITY,
@@ -38,6 +47,9 @@ CREATE TABLE invoice_items(
     treatement_id INT NOT NULL REFERENCES treatements(id),
     PRIMARY KEY (id)
 );
+-- FK index
+CREATE INDEX treatements_id_index ON
+    invoice_items(treatement_id);
 
 
 CREATE TABLE med_his_treatements(
@@ -46,4 +58,7 @@ CREATE TABLE med_his_treatements(
   treatement_id INT NOT NULL REFERENCES treatements(id),
   PRIMARY KEY (id)
 );
+-- FK index
+CREATE INDEX med_his_treatements_index ON
+    med_his_treatements(medical_history__id, treatement_id);
 
